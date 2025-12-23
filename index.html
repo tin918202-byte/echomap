@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EchoMap</title>
+  <style>
+    body { font-family: system-ui; margin: 40px; max-width: 700px; }
+    textarea, input { width: 100%; margin: 10px 0; }
+    button { padding: 10px 16px; }
+    .entry { border-left: 3px solid #333; padding-left: 10px; margin: 20px 0; }
+  </style>
+</head>
+<body>
+
+<h1>EchoMap</h1>
+<p>Decision memory, not hindsight.</p>
+
+<input id="title" placeholder="Decision title">
+<textarea id="reason" placeholder="Why are you making this decision?"></textarea>
+<textarea id="assumptions" placeholder="Key assumptions"></textarea>
+<button onclick="save()">Save decision</button>
+
+<div id="log"></div>
+
+<script>
+const log = document.getElementById("log");
+
+function save() {
+  const entry = {
+    title: title.value,
+    reason: reason.value,
+    assumptions: assumptions.value,
+    time: new Date().toLocaleString()
+  };
+
+  const data = JSON.parse(localStorage.getItem("echomap") || "[]");
+  data.unshift(entry);
+  localStorage.setItem("echomap", JSON.stringify(data));
+  render();
+}
+
+function render() {
+  log.innerHTML = "";
+  const data = JSON.parse(localStorage.getItem("echomap") || "[]");
+  data.forEach(e => {
+    log.innerHTML += `
+      <div class="entry">
+        <strong>${e.title}</strong><br>
+        <small>${e.time}</small>
+        <p>${e.reason}</p>
+        <em>${e.assumptions}</em>
+      </div>`;
+  });
+}
+
+render();
+</script>
+
+</body>
+</html>
