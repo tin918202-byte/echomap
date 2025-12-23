@@ -1,5 +1,5 @@
 # echomap
-Decision memory tool that captures why choices were made — before outcomes distort recall
+Decision memory tool that captures why choices were made — before outcomes distort recall.
 # EchoMap
 
 EchoMap is a lightweight decision memory tool.
